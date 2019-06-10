@@ -66,13 +66,13 @@ def arrival_country_chooser(arrival_country):
 
 def dep_date_chooser(month, day, year):
 
-	dep_date_button = browser.find_element_by_xpath("//input[@id='flight-departing-single-flp']")
+	dep_date_button = browser.find_element_by_xpath("//input[@id='flight-departing-flp']")
 
 	dep_date_button.clear()
 
 	dep_date_button.send_keys(month + '/' + day + '/' + year)
 
-def return_date_button(month, day, year):
+def return_date_chooser(month, day, year):
 
 	return_date_button = browser.find_element_by_xpath("//input[@id='flight-returning-flp']")
 
@@ -84,7 +84,7 @@ def return_date_button(month, day, year):
 
 def search():
 
-	search = browser.find_element_by_xpath("//button[@class='btn-primary btn-action gcw-submit']")
+	search = browser.find_element_by_xpath("//button[@class='btn-primary btn-action gcw-submit ']")
 
 	search.click()
 
@@ -222,9 +222,6 @@ def compile_data():
 
     print('Excel Sheet Created!')
 
-username = input('Enter your username')
-password = input('Enter your password')
-
 def connect_mail(username, password):
 
     global server
@@ -269,22 +266,16 @@ def send_email(msg):
 
     server.sendmail('mamoon0806@gmail.com', 'mamoon0806@gmail.com', msg)
 
-link = 'https://www.orbitz.com/'
+link = 'https://www.orbitz.com/Flights'
 
 browser.get(link)
 
-time.sleep(15)
-
-#choose flights only
-
-flights_only = browser.find_element_by_xpath("//button[@id='tab-flight-tab-flp']")
-
-flights_only.click()
+time.sleep(3)
 
 ticket_chooser(return_ticket)
 
 depCity = input('Departure City: ')
-dep_country_chooser(city)
+dep_country_chooser(depCity)
 
 arrCity = input('Arrival City: ')
 arrival_country_chooser(arrCity)
@@ -319,9 +310,10 @@ cheapest_stops = current_values[4]
 
 cheapest_price = current_values[-1]
 
-print('run {} completed!'.format(i))
-
 create_msg()
+
+username = input('Enter your username: ')
+password = input('Enter your password: ')
 
 connect_mail(username,password)
 
